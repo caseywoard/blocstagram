@@ -20,7 +20,7 @@
     self = [super initWithStyle:style];
     if (self) {
         //Custom initialization
-        self.images = [NSMutableArray array];
+       
     }
     return self;
 }
@@ -34,38 +34,16 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    for (int i = 1; i <= 10; i++) {
-        NSString *imageName = [NSString stringWithFormat:@"%d.jpg", i];
-        UIImage *image = [UIImage imageNamed:imageName];
-        if (image) {
-            [self.images addObject:image];
-        }
-    }
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"imageCell"];
 }
 
-// this method expands teh tableviewcells to the correct ratio in order to fit the fixed width of the device
- - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-     UIImage *image = self.images[indexPath.row];
-     return (CGRectGetWidth(self.view.frame) / image.size.width) * image.size.height;
- }
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return [self items].count;
 }
 
 
 #pragma mark - Table view data source
-
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return self.images.count;
-}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -87,10 +65,31 @@
         [cell.contentView addSubview:imageView];
     }
     
-    UIImage *image = self.images[indexPath.row];
-    imageView.image = image;
+    BLCMedia *item = [self items][indexPath.row];
+    imageView.image = item.image;
     
     return cell;
+}
+
+
+// this method expands teh tableviewcells to the correct ratio in order to fit the fixed width of the device
+- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    BLCMedia *item = [self items][indexPath.row];
+    UIImage *image = item.image;
+    
+    return (CGRectGetWidth(self.view.frame) / image.size.width) * image.size.height;
+}
+
+-(NSMutableArray *) items {
+    
+    return [BLCDataSource sharedInstance].mediaItems;
+    
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 
@@ -104,12 +103,13 @@
 
 
 
+
  // Override to support editing the table view.
  - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
      
      if (editingStyle == UITableViewCellEditingStyleDelete) {
  // Delete the row from the data source
-         [self.images removeObjectAtIndex:indexPath.row];//newly added today
+        [[self items] removeObjectAtIndex:indexPath.row];//from last checkpoint I used "images" NSArray
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
          
          
