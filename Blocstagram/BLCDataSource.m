@@ -52,9 +52,11 @@
             BLCMedia *media = [[BLCMedia alloc] init];
             media.user = [self randomUser];
             media.image = image;
-            
+            media.caption = [self randomStringOfLength:arc4random_uniform(10)];
+
             NSUInteger commentCount = arc4random_uniform(10);
             NSMutableArray *randomComments = [NSMutableArray array];
+            
             
             for (int i  = 0; i <= commentCount; i++) {
                 BLCComment *randomComment = [self randomComment];
