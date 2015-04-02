@@ -17,6 +17,10 @@
 }
 
 
+
+@property (nonatomic, assign) BOOL isRefreshing;
+@property (nonatomic, assign) BOOL isLoadingOlderItems;
+
 @end
 
 
@@ -74,6 +78,45 @@
     [_mediaItems replaceObjectAtIndex:index withObject:object];
 }
 
+#pragma mark - completion handler
+
+ - (void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler {
+     if (self.isRefreshing == NO) {
+         self.isRefreshing = YES;
+         BLCMedia *media = [[BLCMedia alloc] init];
+         media.user = [self randomUser];
+         media.image = [UIImage imageNamed:@"10.jpg"];
+         //media.caption = [self randomSentenceWithMaximumNumberOfWords:7];
+         NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
+         [mutableArrayWithKVO insertObject:media atIndex:0];
+         self.isRefreshing = NO;
+         if (completionHandler) { //if completionhandler? sounds strange
+             completionHandler(nil);//why nil?
+             NSLog(@"logging refresh completion handler");
+         }
+     }
+ }
+
+ - (void) requestOldItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler {
+     if (self.isLoadingOlderItems == NO) {
+         self.isLoadingOlderItems = YES;
+         BLCMedia *media = [[BLCMedia alloc] init];
+         media.user = [self randomUser];
+         media.image = [UIImage imageNamed:@"1.jpg"];
+         //media.caption = [self randomSentenceWithMaximumNumberOfWords:7];
+         NSMutableArray *mutableArrayWithKVO = [self mutableArrayValueForKey:@"mediaItems"];
+         [mutableArrayWithKVO addObject:media];
+         self.isLoadingOlderItems = NO;
+        
+         NSLog(@"logging infinite scroll");
+         
+         
+         if (completionHandler) {
+             completionHandler(nil);
+            
+         }
+     }
+ }
 
 - (void) addRandomData {
     NSMutableArray *randomMediaItems = [NSMutableArray array];
