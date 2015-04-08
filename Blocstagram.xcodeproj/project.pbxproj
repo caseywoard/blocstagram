@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6EB21A561AD1CB01004EE0F5 /* BLCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB21A551AD1CB01004EE0F5 /* BLCLoginViewController.m */; };
 		6EF502C51AB53AC300693EA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF502C41AB53AC300693EA9 /* main.m */; };
 		6EF502C81AB53AC300693EA9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF502C71AB53AC300693EA9 /* AppDelegate.m */; };
 		6EF502CB1AB53AC300693EA9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF502CA1AB53AC300693EA9 /* ViewController.m */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6EB21A541AD1CB01004EE0F5 /* BLCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCLoginViewController.h; sourceTree = "<group>"; };
+		6EB21A551AD1CB01004EE0F5 /* BLCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCLoginViewController.m; sourceTree = "<group>"; };
 		6EF502BF1AB53AC300693EA9 /* Blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EF502C31AB53AC300693EA9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6EF502C41AB53AC300693EA9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -135,6 +138,8 @@
 				6EF503231AB6470700693EA9 /* BLCComment.m */,
 				6EF503251AB6487F00693EA9 /* BLCDataSource.h */,
 				6EF503261AB6487F00693EA9 /* BLCDataSource.m */,
+				6EB21A541AD1CB01004EE0F5 /* BLCLoginViewController.h */,
+				6EB21A551AD1CB01004EE0F5 /* BLCLoginViewController.m */,
 				6EF502CF1AB53AC300693EA9 /* Images.xcassets */,
 				6EF502C21AB53AC300693EA9 /* Supporting Files */,
 			);
@@ -301,6 +306,7 @@
 				6EF502C51AB53AC300693EA9 /* main.m in Sources */,
 				6EF5031E1AB6462D00693EA9 /* BLCUser.m in Sources */,
 				6EF503271AB6487F00693EA9 /* BLCDataSource.m in Sources */,
+				6EB21A561AD1CB01004EE0F5 /* BLCLoginViewController.m in Sources */,
 				6EF503241AB6470700693EA9 /* BLCComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
