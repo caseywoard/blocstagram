@@ -103,18 +103,28 @@
          
          
          NSString *minID = [[self.mediaItems firstObject] idNumber];
+         if (minID != nil) {
+             
          NSDictionary *parameters = @{@"min_id": minID};
+         
          [self populateDataWithParameters:parameters completionHandler:^(NSError *error) {
              self.isRefreshing = NO;
-             
+            
              if (completionHandler) {
                  completionHandler(error);
              }
          }];
+         } else {
+          
+             self.isRefreshing = NO;
+             
+         }
              NSLog(@"logging refresh completion handler");
          }
 
- }
+
+}
+
 
  - (void) requestOldItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler {
      if (self.isLoadingOlderItems == NO && self.thereAreNoMoreOlderMessages == NO) {
