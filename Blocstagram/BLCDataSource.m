@@ -103,9 +103,9 @@
          
          
          NSString *minID = [[self.mediaItems firstObject] idNumber];
-         if (minID != nil) {
+         
              
-         NSDictionary *parameters = @{@"min_id": minID};
+         NSDictionary *parameters = minID ? @{@"min_id": minID} : nil;
          
          [self populateDataWithParameters:parameters completionHandler:^(NSError *error) {
              self.isRefreshing = NO;
@@ -114,12 +114,9 @@
                  completionHandler(error);
              }
          }];
-         } else {
-          
-             self.isRefreshing = NO;
+       
              
-         }
-             NSLog(@"logging refresh completion handler");
+         
          }
 
 
@@ -131,7 +128,8 @@
          self.isLoadingOlderItems = YES;
        
          NSString *maxID = [[self.mediaItems lastObject] idNumber];
-         NSDictionary *parameters = @{@"max_id": maxID};
+         
+         NSDictionary *parameters = maxID ? @{@"max_id": maxID} : nil;
          
          [self populateDataWithParameters:parameters completionHandler:^(NSError *error) {
              self.isLoadingOlderItems = NO;
