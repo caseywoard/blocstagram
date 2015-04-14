@@ -8,7 +8,17 @@
 
 #import "BLCImagesTableViewController.h"
 
-@interface BLCImagesTableViewController ()
+#import "BLCComment.h" //?
+#import "BLCMediaTableViewCell.h" //?
+#import "BLCMediaFullScreenViewController.h"
+
+#import "BLCMediaFullScreenAnimator.h"
+
+#import "ShareUtilities.h"
+
+@interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate>
+
+@property (nonatomic, weak) UIImageView *lastTappedImageView;
 
 @end
 
@@ -114,12 +124,50 @@
     }
 }
 
+#pragma mark - UIViewControllerTransitioningDelegate 
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented
+                                                                  presentingController:(UIViewController *)presenting
+                                                                      sourceController:(UIViewController *)source {
+    BLCMediaFullScreenAnimator *animator = [BLCMediaFullScreenAnimator new];
+    animator.presenting = YES;
+    animator.cellImageView = self.lastTappedImageView;
+    return animator;
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    BLCMediaFullScreenAnimator *animator = [BLCMediaFullScreenAnimator new];
+    animator.cellImageView = self.lastTappedImageView;
+    return animator;
+}
+
+#pragma mark - BLCMediaTableViewCellDelegate 
+
+- (void) cell:(BLCMediaTableViewCell *)cell didTapImageView:(UIImageView *)imageView {
+    self.lastTappedImageView = imageView;
+    BLCMediaFullScreenViewController *fullScreenVC = [[BLCMediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
+    
+    fullScreenVC.transitioningDelegate = self;
+    fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+    
+    [self presentViewController:fullScreenVC animated:YES completion:nil];
+}
+
+- (void) cell:(BLCMediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
+ 
+    [ShareUtilities shareContentsWithText:cell.mediaItem viewController:self];
+}
+
+
 #pragma mark - Table view data source
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Configure the cell...
     BLCMediaTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"mediaCell" forIndexPath:indexPath];
+    
+    
+    cell.delegate = self;
     cell.mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
     
     return cell;

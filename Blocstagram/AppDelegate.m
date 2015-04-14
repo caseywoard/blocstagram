@@ -41,7 +41,6 @@
         // does this work?
         [[BLCDataSource sharedInstance] requestNewItemsWithCompletionHandler:^(NSError *error) {}];
 
-        
     }
 
     self.window.rootViewController = navVC;
