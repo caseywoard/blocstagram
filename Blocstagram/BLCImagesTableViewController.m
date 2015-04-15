@@ -19,6 +19,7 @@
 @interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate>
 
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
+//@property (nonatomic, strong) UITapGestureRecognizer *twoFingerTap;
 
 @end
 
@@ -54,7 +55,13 @@
     [self.refreshControl addTarget:self action:@selector(refreshControlDidFire:) forControlEvents:UIControlEventValueChanged];
     
     [self.tableView registerClass:[BLCMediaTableViewCell class] forCellReuseIdentifier:@"mediaCell"];
+    
+   
+    
 }
+
+
+
 
 - (void) refreshControlDidFire:(UIRefreshControl *) sender {
     [[BLCDataSource sharedInstance] requestNewItemsWithCompletionHandler:^(NSError *error) {

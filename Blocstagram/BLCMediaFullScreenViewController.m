@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @property (nonatomic, strong) UITapGestureRecognizer *doubleTap;
 
+
 @property (nonatomic, strong) UIButton *shareButton;
 
 @end
@@ -55,6 +56,7 @@
     
     //about the double tap
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired:)];
+    //self.tap.numberOfTouchesRequired = 1;//needed?
     
     self.doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapFired:)];
     self.doubleTap.numberOfTapsRequired = 2;
@@ -80,12 +82,16 @@
     [self.view addSubview:shareButton];
     
     [shareButton addTarget:self action:@selector(shareTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
+   
+    
 }
 
 
 -(void) shareTapped: (id) sender {
     [ShareUtilities shareContentsWithText:self.media viewController:self];
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -147,6 +153,8 @@
         [self.scrollView setZoomScale:self.scrollView.minimumZoomScale animated:YES];
     }
 }
+
+
 
 #pragma mark - UIScrollViewDelegate
 

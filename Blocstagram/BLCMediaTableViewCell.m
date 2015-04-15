@@ -13,7 +13,7 @@
 #import "BLCMedia.h"
 #import "BLCComment.h"
 #import "BLCUser.h"
-//#import "BLCDataSource.h"//not sure if this needed
+
 
 @interface BLCMediaTableViewCell () <UIGestureRecognizerDelegate>
 
@@ -26,6 +26,8 @@
 @property (nonatomic, strong) NSLayoutConstraint *commentLabelHeightConstraint;
 
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+@property (nonatomic, strong) UITapGestureRecognizer *twoFingerTap;
+
 
 @end
 
@@ -66,6 +68,14 @@ static NSParagraphStyle *paragraphStyle;
     self.longPressGestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressFired:)];
     self.longPressGestureRecognizer.delegate = self;
     [self.mediaImageView addGestureRecognizer:self.longPressGestureRecognizer];
+    
+    //checkpoint assignment
+    self.twoFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(twoFingerTapFired:)];
+    self.twoFingerTap.numberOfTouchesRequired = 2;
+    
+    [self.mediaImageView addGestureRecognizer:self.twoFingerTap];
+    
+    //
     
     self.usernameAndCaptionLabel = [[UILabel alloc] init];
     self.usernameAndCaptionLabel.numberOfLines = 0;
@@ -114,6 +124,13 @@ static NSParagraphStyle *paragraphStyle;
     } return self;
     
 }
+//assignment
+- (void) twoFingerTapFired:(UITapGestureRecognizer *)sender {
+    
+    
+    NSLog(@"twoFingerTap was made.");
+    
+}
 
  - (NSAttributedString *) usernameAndCaptionString {
      
@@ -157,6 +174,7 @@ static NSParagraphStyle *paragraphStyle;
         [self.delegate cell:self didLongPressImageView:self.mediaImageView];
     }
 }
+
 
 #pragma mark - UIGestureRecognizerDelegate
 
