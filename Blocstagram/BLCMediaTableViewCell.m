@@ -13,6 +13,8 @@
 #import "BLCMedia.h"
 #import "BLCComment.h"
 #import "BLCUser.h"
+#import "BLCDataSource.h"
+
 
 
 @interface BLCMediaTableViewCell () <UIGestureRecognizerDelegate>
@@ -126,8 +128,8 @@ static NSParagraphStyle *paragraphStyle;
 }
 //assignment
 - (void) twoFingerTapFired:(UITapGestureRecognizer *)sender {
-    
-    
+        
+   [[BLCDataSource sharedInstance] downloadImageForMediaItem:self.mediaItem];
     NSLog(@"twoFingerTap was made.");
     
 }

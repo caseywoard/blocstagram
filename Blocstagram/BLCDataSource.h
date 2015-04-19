@@ -18,6 +18,8 @@ typedef void (^BLCNewItemCompletionBlock)(NSError *error);
 
 + (instancetype) sharedInstance;
 
+- (void) downloadImageForMediaItem:(BLCMedia *)mediaItem;
+
 @property (nonatomic, strong) NSMutableArray *mediaItems;
 
 @property (nonatomic, strong, readonly) NSString *accessToken;
