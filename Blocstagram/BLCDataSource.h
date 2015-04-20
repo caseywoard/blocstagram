@@ -18,7 +18,6 @@ typedef void (^BLCNewItemCompletionBlock)(NSError *error);
 
 + (instancetype) sharedInstance;
 
-- (void) downloadImageForMediaItem:(BLCMedia *)mediaItem;
 
 @property (nonatomic, strong) NSMutableArray *mediaItems;
 
@@ -28,6 +27,8 @@ typedef void (^BLCNewItemCompletionBlock)(NSError *error);
 
 - (void) requestNewItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler;
 - (void) requestOldItemsWithCompletionHandler:(BLCNewItemCompletionBlock)completionHandler;
+
+- (void) downloadImageForMediaItem:(BLCMedia *)mediaItem;
 
 @end
 

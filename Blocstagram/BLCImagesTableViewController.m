@@ -16,10 +16,12 @@
 
 #import "ShareUtilities.h"
 
-@interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate>
+@interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, UIScrollViewDelegate>
 
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
-//@property (nonatomic, strong) UITapGestureRecognizer *twoFingerTap;
+
+
+@property(nonatomic, readonly, getter=isDecelerating) BOOL decelerating; //for assignment
 
 @end
 
@@ -78,10 +80,13 @@
 
 #pragma mark - UIScrollViewDelegate 
 
-- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+//- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+- (void) scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
     
-    [self infiniteScrollIfNecessary];
-    NSLog(@"infiniteScrollNecessary was called");
+        [self infiniteScrollIfNecessary];
+        NSLog(@"infiniteScrollNecessary was called");
+    
+    
    
 }
 
@@ -178,6 +183,13 @@
     cell.mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
     
     return cell;
+}
+
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    BLCMedia *mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
+    if (mediaItem.downloadState == BLCMediaDownloadStateNeedsImage) {
+        [[BLCDataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+    }
 }
 
 
