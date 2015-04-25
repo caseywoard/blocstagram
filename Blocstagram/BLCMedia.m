@@ -10,6 +10,7 @@
 #import "BLCUser.h"
 #import "BLCComment.h"
 
+
 @implementation BLCMedia
 
 - (instancetype) initWithDictionary:(NSDictionary *)mediaDictionary {
@@ -45,6 +46,21 @@
         }
         
         self.comments = commentsArray;
+        
+        BOOL userHasLiked = [mediaDictionary[@"user_has_liked"] boolValue];
+        
+        self.likeState = userHasLiked ? BLCLikeStateLiked : BLCLikeStateNotLiked;
+        
+        //NSInteger likeCountNumber = mediaDictionary[@"count"];
+        //[self.likeCount setText:[NSString stringWithFormat:@"%@", likeCountNumber]];
+        
+        //[self.likeCount setText:[NSString stringWithFormat:@"%@", mediaDictionary[@"count"]]];
+        //mediaDictionary[@"count"];
+        self.likeCount = [mediaDictionary[@"likes"][@"count"] integerValue];
+      
+    
+
+        
     }
     
     return self;
@@ -60,6 +76,8 @@
         self.user = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(user))];
         self.mediaURL = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(mediaURL))];
         self.image = [aDecoder decodeObjectForKey:NSStringFromSelector(@selector(image))];
+        self.likeState = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(likeState))];
+        self.likeCount = [aDecoder decodeIntegerForKey:NSStringFromSelector(@selector(likeCount))];
         
         if (self.image) {
             self.downloadState = BLCMediaDownloadStateHasImage;
@@ -83,6 +101,8 @@
     [aCoder encodeObject:self.image forKey:NSStringFromSelector(@selector(image))];
     [aCoder encodeObject:self.caption forKey:NSStringFromSelector(@selector(caption))];
     [aCoder encodeObject:self.comments forKey:NSStringFromSelector(@selector(comments))];
+    [aCoder encodeInteger:self.likeState forKey:NSStringFromSelector(@selector(likeState))];
+    [aCoder encodeInteger:self.likeCount forKey:NSStringFromSelector(@selector(likeCount))];
 }
 
 @end

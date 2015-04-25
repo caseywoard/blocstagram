@@ -80,15 +80,36 @@
 
 #pragma mark - UIScrollViewDelegate 
 
-//- (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-- (void) scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {
-    
+
+
+-(void) scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
         [self infiniteScrollIfNecessary];
         NSLog(@"infiniteScrollNecessary was called");
     
-    
-   
 }
+
+
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    for (NSIndexPath* indexPath in [self.tableView indexPathsForVisibleRows]) {
+        BLCMedia *mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
+        if (mediaItem.downloadState == BLCMediaDownloadStateNeedsImage) {
+            [[BLCDataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+        }
+    }
+    
+}
+
+/*
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    BLCMedia *mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
+    if (mediaItem.downloadState == BLCMediaDownloadStateNeedsImage) {
+        [[BLCDataSource sharedInstance] downloadImageForMediaItem:mediaItem];
+    }
+}
+
+*/
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
@@ -135,6 +156,12 @@
         }
     }
 }
+
+- (void) cellDidPressLikeButton:(BLCMediaTableViewCell *)cell {
+    [[BLCDataSource sharedInstance] toggleLikeOnMediaItem:cell.mediaItem];
+    
+}
+
 
 #pragma mark - UIViewControllerTransitioningDelegate 
 
@@ -185,12 +212,17 @@
     return cell;
 }
 
+//work here for assignment
+
+/*
 - (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     BLCMedia *mediaItem = [BLCDataSource sharedInstance].mediaItems[indexPath.row];
     if (mediaItem.downloadState == BLCMediaDownloadStateNeedsImage) {
         [[BLCDataSource sharedInstance] downloadImageForMediaItem:mediaItem];
     }
 }
+
+*/
 
 
 // this method expands teh tableviewcells to the correct ratio in order to fit the fixed width of the device
