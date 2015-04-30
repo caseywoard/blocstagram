@@ -31,5 +31,7 @@ typedef void (^BLCNewItemCompletionBlock)(NSError *error);
 - (void) downloadImageForMediaItem:(BLCMedia *)mediaItem;
 - (void) toggleLikeOnMediaItem:(BLCMedia *)mediaItem;
 
+- (void) commentOnMediaItem:(BLCMedia *)mediaItem withCommentText:(NSString *)commentText;
+
 @end
 
