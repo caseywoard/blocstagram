@@ -14,8 +14,9 @@
 #import "BLCMediaFullScreenAnimator.h"
 #import "ShareUtilities.h"
 #import "BLCCameraViewController.h"
+#import "BLCImageLibraryViewController.h"
 
-@interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, UIScrollViewDelegate, BLCCameraViewControllerDelegate>
+@interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, UIScrollViewDelegate, BLCCameraViewControllerDelegate, BLCImageLibraryViewControllerDelegate>
 
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
@@ -310,11 +311,37 @@
 #pragma mark - Camera and BLCCameraViewControllerDelegate
 
 - (void) cameraPressed:(UIBarButtonItem *) sender {
-    BLCCameraViewController *cameraVC = [[BLCCameraViewController alloc] init];
-    cameraVC.delegate = self;
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:cameraVC];
-    [self presentViewController:nav animated:YES completion:nil];
+    
+    UIViewController *imageVC;
+    
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        
+        BLCCameraViewController *cameraVC = [[BLCCameraViewController alloc] init];
+        cameraVC.delegate = self;
+        imageVC = cameraVC;
+        
+        } else if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+            
+            BLCImageLibraryViewController *imageLibraryVC = [[BLCImageLibraryViewController alloc] init];
+            imageLibraryVC.delegate = self;
+            imageVC = imageLibraryVC;
+        }
+    
+    if (imageVC) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
+        [self presentViewController:nav animated:YES completion:nil];
+    }
     return;
+}
+
+- (void) imageLibraryViewController:(BLCImageLibraryViewController *)imageLibraryViewController didCompleteWithImage:(UIImage *)image {
+    [imageLibraryViewController dismissViewControllerAnimated:YES completion:^{
+        if (image) {
+            NSLog(@"Got an image!");
+        } else {
+            NSLog(@"Closed without an image.");
+        }
+    }];
 }
 
 - (void) cameraViewController:(BLCCameraViewController *)cameraViewController didCompleteWithImage:(UIImage *)image {

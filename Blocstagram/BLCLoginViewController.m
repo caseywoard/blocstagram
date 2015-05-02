@@ -9,7 +9,8 @@
 #import "BLCLoginViewController.h"
 #import "BLCDataSource.h"
 
-@interface BLCLoginViewController () <UIWebViewDelegate>
+
+@interface BLCLoginViewController () <UIAlertViewDelegate>
 
 @property (nonatomic, weak) UIWebView *webView;
 
@@ -53,7 +54,6 @@ NSString *const BLCLoginViewControllerDidGetAccessTokenNotification = @"BLCLogin
 
     
  }
-
 
 
 - (NSString *)redirectURI {
