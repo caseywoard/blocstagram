@@ -1,0 +1,22 @@
+//
+//  Blocstagram-Prefix.pch
+//  Blocstagram
+//
+//  Created by Casey Ward on 5/3/15.
+//  Copyright (c) 2015 Casey Ward. All rights reserved.
+//
+
+
+#define Blocstagram_Blocstagram_Prefix_pch
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <Availability.h>
+
+#define isPhone ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+
+//#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#ifdef __OBJC__
+
+
+#endif

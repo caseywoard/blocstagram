@@ -33,6 +33,8 @@
 
 @implementation BLCDataSource
 
+NSString *const BLCImageFinishedNotification = @"BLCImageFinishedNotification";
+
 + (NSString *) instagramClientID {
     return @"9492c761536f4120983efeafaeb707b0";
 }
@@ -102,6 +104,11 @@
         
         
     }];
+}
+
+#warning this documentInteractionController was supposed to be here already...
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application {
+    [[NSNotificationCenter defaultCenter] postNotificationName:BLCImageFinishedNotification object:self];
 }
 
  - (void) deleteMediaItem:(BLCMedia *)item {

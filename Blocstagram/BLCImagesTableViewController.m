@@ -16,12 +16,14 @@
 #import "BLCCameraViewController.h"
 #import "BLCImageLibraryViewController.h"
 #import "BLCPostToInstagramViewController.h"
+#import "ShareUtilities.h"
 
 @interface BLCImagesTableViewController () <BLCMediaTableViewCellDelegate, UIViewControllerTransitioningDelegate, UIScrollViewDelegate, BLCCameraViewControllerDelegate, BLCImageLibraryViewControllerDelegate>
 
 @property (nonatomic, weak) UIImageView *lastTappedImageView;
 @property (nonatomic, weak) UIView *lastSelectedCommentView;
 @property (nonatomic, assign) CGFloat lastKeyboardAdjustment;
+@property (nonatomic, strong) UIPopoverController *cameraPopover;
 
 
 @property(nonatomic, readonly, getter=isDecelerating) BOOL decelerating; //for assignment
@@ -79,6 +81,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(imageDidFinish:)
+                                                 name:BLCImageFinishedNotification
                                                object:nil];
 }
 
@@ -298,15 +305,39 @@
     self.lastTappedImageView = imageView;
     BLCMediaFullScreenViewController *fullScreenVC = [[BLCMediaFullScreenViewController alloc] initWithMedia:cell.mediaItem];
     
-    fullScreenVC.transitioningDelegate = self;
-    fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+    if (isPhone) {
+        fullScreenVC.transitioningDelegate = self;
+        fullScreenVC.modalPresentationStyle = UIModalPresentationCustom;
+    } else {
+        fullScreenVC.modalPresentationStyle = UIModalPresentationFormSheet;
+    }
     
     [self presentViewController:fullScreenVC animated:YES completion:nil];
 }
 
 - (void) cell:(BLCMediaTableViewCell *)cell didLongPressImageView:(UIImageView *)imageView {
- 
-    [ShareUtilities shareContentsWithText:cell.mediaItem viewController:self];
+    
+    UIActivityViewController *activityVC = [ShareUtilities shareContentsWithText:cell.mediaItem viewController:self];
+    
+    if (isPhone) {
+         [self presentViewController:activityVC animated:YES completion:nil];
+        
+    } else {
+        //if ipad
+            
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:activityVC];
+        self.cameraPopover = [[UIPopoverController alloc] initWithContentViewController:nav];
+        self.cameraPopover.popoverContentSize = CGSizeMake(768, 568);
+        [self.cameraPopover presentPopoverFromRect:cell.bounds inView:imageView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
+
+
+}
+
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+                                         duration:(NSTimeInterval)duration {
+    
 }
 
 #pragma mark - Camera and BLCCameraViewControllerDelegate
@@ -330,7 +361,13 @@
     
     if (imageVC) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:imageVC];
-        [self presentViewController:nav animated:YES completion:nil];
+        if (isPhone) {
+            [self presentViewController:nav animated:YES completion:nil];
+        } else {
+            self.cameraPopover = [[UIPopoverController alloc] initWithContentViewController:nav];
+            self.cameraPopover.popoverContentSize = CGSizeMake(320, 568);
+            [self.cameraPopover presentPopoverFromBarButtonItem:sender permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
     }
     return;
 }
@@ -343,7 +380,12 @@
         
         [nav pushViewController:postVC animated:YES];
     } else {
-        [nav dismissViewControllerAnimated:YES completion:nil];
+        if (isPhone) {
+            [nav dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [self.cameraPopover dismissPopoverAnimated:YES];
+            self.cameraPopover = nil;
+        }
     }
 }
 
@@ -426,5 +468,14 @@
     [cell stopComposingComment];
 }
 
+ #pragma mark - Popover Handling 
+- (void) imageDidFinish:(NSNotification *)notification {
+    if (isPhone) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.cameraPopover dismissPopoverAnimated:YES];
+        self.cameraPopover = nil;
+    }
+}
 
 @end

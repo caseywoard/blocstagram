@@ -12,6 +12,8 @@
 
 @interface ShareUtilities : NSObject
 
-+ (void) shareContentsWithText:(BLCMedia *)mediaItem viewController:(UIViewController *)vc;
++ (UIActivityViewController *) shareContentsWithText:(BLCMedia *)mediaItem viewController:(UIViewController *)vc;
+
+//+ (void) shareContentsWithText:(BLCMedia *)mediaItem viewController:(UIViewController *)vc;
 
 @end
