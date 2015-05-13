@@ -91,6 +91,7 @@
 
 
 - (void)viewWillAppear:(BOOL)animated {
+
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
     if (indexPath) {
         [self.tableView deselectRowAtIndexPath:indexPath animated:animated];

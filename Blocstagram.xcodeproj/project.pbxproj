@@ -23,6 +23,9 @@
 		6E2E2B701AF47FA5005885C5 /* BLCPostToInstagramViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2E2B6F1AF47FA5005885C5 /* BLCPostToInstagramViewController.m */; };
 		6E3076FA1AFB1A78004B479F /* BLCUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3076F91AFB1A78004B479F /* BLCUserTests.m */; };
 		6E3076FC1AFB1B96004B479F /* BLCCommentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3076FB1AFB1B96004B479F /* BLCCommentTests.m */; };
+		6E3076FE1AFF07CE004B479F /* BLCMediaTableViewCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3076FD1AFF07CE004B479F /* BLCMediaTableViewCellTests.m */; };
+		6E3077001AFFD8B2004B479F /* BLCMediaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3076FF1AFFD8B2004B479F /* BLCMediaTests.m */; };
+		6E3077021B01AAF1004B479F /* BLCComposeCommentViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E3077011B01AAF1004B479F /* BLCComposeCommentViewTest.m */; };
 		6EB21A561AD1CB01004EE0F5 /* BLCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB21A551AD1CB01004EE0F5 /* BLCLoginViewController.m */; };
 		6EF502C51AB53AC300693EA9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF502C41AB53AC300693EA9 /* main.m */; };
 		6EF502C81AB53AC300693EA9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EF502C71AB53AC300693EA9 /* AppDelegate.m */; };
@@ -92,6 +95,9 @@
 		6E2E2B711AF6D586005885C5 /* Blocstagram-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Blocstagram-Prefix.pch"; sourceTree = "<group>"; };
 		6E3076F91AFB1A78004B479F /* BLCUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCUserTests.m; sourceTree = "<group>"; };
 		6E3076FB1AFB1B96004B479F /* BLCCommentTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCCommentTests.m; sourceTree = "<group>"; };
+		6E3076FD1AFF07CE004B479F /* BLCMediaTableViewCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMediaTableViewCellTests.m; sourceTree = "<group>"; };
+		6E3076FF1AFFD8B2004B479F /* BLCMediaTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCMediaTests.m; sourceTree = "<group>"; };
+		6E3077011B01AAF1004B479F /* BLCComposeCommentViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCComposeCommentViewTest.m; sourceTree = "<group>"; };
 		6EB21A541AD1CB01004EE0F5 /* BLCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLCLoginViewController.h; sourceTree = "<group>"; };
 		6EB21A551AD1CB01004EE0F5 /* BLCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLCLoginViewController.m; sourceTree = "<group>"; };
 		6EF502BF1AB53AC300693EA9 /* Blocstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -253,6 +259,9 @@
 				6EF502DE1AB53AC300693EA9 /* BlocstagramTests.m */,
 				6E3076F91AFB1A78004B479F /* BLCUserTests.m */,
 				6E3076FB1AFB1B96004B479F /* BLCCommentTests.m */,
+				6E3076FD1AFF07CE004B479F /* BLCMediaTableViewCellTests.m */,
+				6E3076FF1AFFD8B2004B479F /* BLCMediaTests.m */,
+				6E3077011B01AAF1004B479F /* BLCComposeCommentViewTest.m */,
 				6EF502DC1AB53AC300693EA9 /* Supporting Files */,
 			);
 			path = BlocstagramTests;
@@ -468,7 +477,10 @@
 			files = (
 				6E3076FA1AFB1A78004B479F /* BLCUserTests.m in Sources */,
 				6EF502DF1AB53AC300693EA9 /* BlocstagramTests.m in Sources */,
+				6E3076FE1AFF07CE004B479F /* BLCMediaTableViewCellTests.m in Sources */,
 				6E3076FC1AFB1B96004B479F /* BLCCommentTests.m in Sources */,
+				6E3077001AFFD8B2004B479F /* BLCMediaTests.m in Sources */,
+				6E3077021B01AAF1004B479F /* BLCComposeCommentViewTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

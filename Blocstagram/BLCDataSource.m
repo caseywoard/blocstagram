@@ -106,7 +106,7 @@ NSString *const BLCImageFinishedNotification = @"BLCImageFinishedNotification";
     }];
 }
 
-#warning this documentInteractionController was supposed to be here already...
+
 - (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application {
     [[NSNotificationCenter defaultCenter] postNotificationName:BLCImageFinishedNotification object:self];
 }
